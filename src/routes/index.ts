@@ -7,8 +7,13 @@ const router = Router();
 // Add sub-routes
 // router.use('/users', UserRouter);
 
+const repoDir: string = process.env.ARMA3SYNC_DIR || '';
+if (!repoDir) {
+    throw new Error('no repo dir! plz set ARMA3SYNC_DIR env var');
+}
+
 router.get('/events', async (req: Request, res: Response) => {
-    const events = await new A3sDirectory('/home/fusselwurm/arma3/mods/.a3s').getEvents();
+    const events = await new A3sDirectory(repoDir).getEvents();
     res.send(JSON.stringify(events));
 });
 
