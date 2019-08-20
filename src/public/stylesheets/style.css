@@ -31,3 +31,12 @@ body .users-column .user-display-ele button {
 body .users-column .user-display-ele .edit-view {
   display: none;
 }
+
+#event-list > table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+#event-list td, #event-list th {
+  border: 1px solid gray;
+  padding: 2px;
+}

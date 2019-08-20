@@ -9,53 +9,54 @@ function displayEvents() {
     httpGet('/api/events')
         .then(response => response.json())
         .then((response) => {
-            var events = response.list;
-            // Empty the anchor
-            let allUsersAnchor = document.getElementById('all-users-anchor');
-            allUsersAnchor.innerHTML = '';
-            // Append users to anchor
-            allUsers.forEach((user) => {
-                allUsersAnchor.innerHTML += getUserDisplayEle(user);
+            let events = response.list;
+            let eventContainer = document.getElementById('event-list');
+            let thList = events.map(event => `<th title="${event.description}">${event.name}</th>`);
+            let modList = unique(events.map(event => Object.getOwnPropertyNames(event.addonNames)).reduce((prev, cur) => prev.concat(cur), [])).sort();
+            let rows = modList.map(mod => {
+                let modCell = `<th scope="row">${mod}</th>`;
+                let cells = events.map(event => {
+                    let isActive = event.addonNames[mod] !== undefined;
+                    return `<td><input type="checkbox" name="${event.name}_${mod}" value="${isActive}" ${isActive ? "checked" : ""}/></td>`
+                });
+                return `<tr>${modCell} ${cells.join('')}</tr>`
             });
+
+            eventContainer.innerHTML = `<table>
+                    <thead>
+                        <th></th>${thList.join()}                  
+                    </thead>
+                    <tbody>
+                        ${rows.join('\n')}
+                    </tbody>
+                    <tfoot><th></th>${thList.join()}</tfoot>
+                </table>
+                `;
         });
 }
 
-
-function getUserDisplayEle(user) {
-    return `<div class="user-display-ele">
-
-        <div class="normal-view">
-            <div>Name: ${user.name}</div>
-            <div>Email: ${user.email}</div>
-            <button class="edit-user-btn" data-user-id="${user.id}">
-                Edit
-            </button>
-            <button class="delete-user-btn" data-user-id="${user.id}">
-                Delete
-            </button>
-        </div>
-        
-        <div class="edit-view">
-            <div>
-                Name: <input class="name-edit-input" value="${user.name}">
-            </div>
-            <div>
-                Email: <input class="email-edit-input" value="${user.email}">
-            </div>
-            <button class="submit-edit-btn" data-user-id="${user.id}">
-                Submit
-            </button>
-            <button class="cancel-edit-btn" data-user-id="${user.id}">
-                Cancel
-            </button>
-        </div>
-    </div>`;
+function unique(array) {
+    let existing = [];
+    return array.filter((element) => {
+        if (existing.indexOf(element) === -1) {
+            existing.push(element);
+            return true;
+        }
+    })
 }
-
 
 /******************************************************************************
  *                        Add, Edit, and Delete Users
  ******************************************************************************/
+
+document.getElementById('save-event-list').addEventListener('click', () => {
+    let eventList = []; // TODO the api structure is shit. this must be improved
+    document.querySelectorAll('#event-list input[type=checkbox]').forEach((checkbox) => {
+        if (checkbox.checked) {
+
+        }
+    });
+});
 
 document.addEventListener('click', function (event) {
     event.preventDefault();
@@ -70,7 +71,7 @@ document.addEventListener('click', function (event) {
     } else if (event.target.matches('.delete-user-btn')) {
         deleteUser();
     }
-}, false)
+}, false);
 
 
 function addUser() {
