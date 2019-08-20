@@ -15,6 +15,7 @@
     "@server": "dist/Server"
   },
   "dependencies": {
+    "arma3sync-lib": "0.0.4",
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
     "dotenv": "^8.1.0",
@@ -22,8 +23,8 @@
     "http-status-codes": "^1.3.2",
     "module-alias": "^2.2.1",
     "morgan": "^1.9.1",
-    "winston": "^3.2.1",
-    "arma3sync-lib": "0.0.4"
+    "passport-http": "^0.3.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
