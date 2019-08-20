@@ -2,14 +2,14 @@
  *                          Fetch and display users
  ******************************************************************************/
 
-displayUsers();
+displayEvents();
 
 
-function displayUsers() {
-    httpGet('/api/users/all')
+function displayEvents() {
+    httpGet('/api/events')
         .then(response => response.json())
         .then((response) => {
-            var allUsers = response.users;
+            var events = response.list;
             // Empty the anchor
             let allUsersAnchor = document.getElementById('all-users-anchor');
             allUsersAnchor.innerHTML = '';
@@ -18,7 +18,7 @@ function displayUsers() {
                 allUsersAnchor.innerHTML += getUserDisplayEle(user);
             });
         });
-};
+}
 
 
 function getUserDisplayEle(user) {
