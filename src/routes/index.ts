@@ -30,6 +30,7 @@ router.get('/events', async (req: Request, res: Response) => {
 
 router.post('/events', async (req: Request, res: Response) => {
     const events = req.body as Events;
+    logger.info(JSON.stringify(events));
     if (!events && !Array.isArray(events)) {
         res.status(400);
         return res.send();
@@ -37,8 +38,8 @@ router.post('/events', async (req: Request, res: Response) => {
     try {
         await a3sFacade.writeEvents(events);
     } catch (e) {
+        logger.error(e.message);
         res.status(400);
-        logger.error(e);
         return res.send();
     }
     res.send();

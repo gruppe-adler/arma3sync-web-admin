@@ -1,10 +1,10 @@
 import app from '@server';
 import supertest from 'supertest';
 
-import {BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, OK} from 'http-status-codes';
+import {BAD_REQUEST, INTERNAL_SERVER_ERROR, OK} from 'http-status-codes';
 import {Response, SuperTest, Test} from 'supertest';
 import {logger, pErr} from '@shared';
-import {Event, IClientEvent} from 'src/entities/Event';
+import {IClientEvent} from 'src/entities/Event';
 import {A3sFacade} from 'src/entities/A3sFacade';
 import {Events} from 'src/entities/Events';
 import {A3sDirectory} from 'arma3sync-lib';
@@ -13,8 +13,23 @@ import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
 describe('Users Routes', () => {
 
     const eventsPath = '/api/events';
-
     let agent: SuperTest<Test>;
+    const eventsFromA3s: A3sEventsDto = {
+        list: [
+            {
+                name: 'weekly co-op',
+                description: 'what we do every week',
+                addonNames: {'@tfar': false, '@ace': false, '@cba': false},
+                userconfigFolderNames: {},
+            },
+            {
+                name: 'special tvt',
+                description: '',
+                addonNames: {'@tfar': false, '@ace': false, '@cba': false, '@specialz': false},
+                userconfigFolderNames: {},
+            },
+        ],
+    };
 
     beforeAll((done) => {
         agent = supertest.agent(app);
@@ -26,22 +41,6 @@ describe('Users Routes', () => {
 
         it(`should return a list of events`, (done) => {
 
-            const eventsFromA3s: A3sEventsDto = {
-                list: [
-                    {
-                        name: 'weekly co-op',
-                        description: 'what we do every week',
-                        addonNames: {'@tfar': false, '@ace': false, '@cba': false},
-                        userconfigFolderNames: {},
-                    },
-                    {
-                        name: 'special tvt',
-                        description: '',
-                        addonNames: {'@tfar': false, '@ace': false, '@cba': false, '@specialz': false},
-                        userconfigFolderNames: {},
-                    },
-                ],
-            };
             spyOn(A3sDirectory.prototype, 'getEvents').and.returnValue(Promise.resolve(eventsFromA3s));
 
             let frontendEvents: Events = [];
@@ -78,28 +77,31 @@ describe('Users Routes', () => {
 
     describe(`"PUT:${eventsPath}"`, () => {
 
-        let events = new Events();
+        let events: IClientEvent[] = [];
         events = events.concat([
-            new Event('weekly co-op', 'what we do every week', ['@tfar', '@ace', '@cba']),
-            new Event('special tvt', '', ['@tfar', '@ace', '@cba', '@specialz']),
+            {name: 'weekly co-op', description: 'what we do every week', addonNames: ['@tfar', '@ace', '@cba']},
+            {name: 'special tvt', description: '', addonNames: ['@tfar', '@ace', '@cba', '@specialz']},
         ]);
 
-        it(`should return a status code of "${CREATED}" if the request was successful.`, (done) => {
+        it(`should return a status code of "${OK}" if the request was successful.`, (done) => {
 
-            spyOn(A3sFacade.prototype, 'writeEvents').and.returnValue(Promise.resolve());
+            spyOn(A3sDirectory.prototype, 'setEvents').and.returnValue(Promise.resolve());
 
-            agent.post(eventsPath).type('form').send(events)
+            agent.post(eventsPath).type('json').send(events)
                 .end((err: Error, res: Response) => {
                     pErr(err);
                     expect(res.status).toBe(OK);
                     expect(res.body.error).toBeUndefined();
+
+                    expect(A3sDirectory.prototype.setEvents).toHaveBeenCalledWith(eventsFromA3s);
+
                     done();
                 });
         });
 
         it(`should return a status code of "${BAD_REQUEST}" if the request contained shit.`, (done) => {
-            events.push({} as IClientEvent);
-            agent.post(eventsPath).type('form').send(events)
+
+            agent.post(eventsPath).type('json').send([{}])
                 .end((err: Error, res: Response) => {
                     pErr(err);
                     expect(res.status).toBe(BAD_REQUEST);
