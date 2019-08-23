@@ -1,6 +1,12 @@
 import {A3sEventDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
 
-export class Event {
+export interface IClientEvent {
+    name: string;
+    description: string;
+    addonNames: string[];
+}
+
+export class Event implements IClientEvent {
 
     constructor(
         public name: string,

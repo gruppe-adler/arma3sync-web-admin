@@ -1,7 +1,7 @@
 import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
-import {Event} from 'src/entities/Event';
+import {Event, IClientEvent} from 'src/entities/Event';
 
-export class Events extends Array<Event> {
+export class Events extends Array<IClientEvent> {
     public static fromDto(a3sEvents: A3sEventsDto): Events {
         return a3sEvents.list.map((event) => Event.fromA3sDto(event));
     }
