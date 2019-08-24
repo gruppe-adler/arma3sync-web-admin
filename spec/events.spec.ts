@@ -87,7 +87,7 @@ describe('Users Routes', () => {
 
             spyOn(A3sDirectory.prototype, 'setEvents').and.returnValue(Promise.resolve());
 
-            agent.post(eventsPath).type('json').send(events)
+            agent.put(eventsPath).type('json').send(events)
                 .end((err: Error, res: Response) => {
                     pErr(err);
                     expect(res.status).toBe(OK);
@@ -101,7 +101,7 @@ describe('Users Routes', () => {
 
         it(`should return a status code of "${BAD_REQUEST}" if the request contained shit.`, (done) => {
 
-            agent.post(eventsPath).type('json').send([{}])
+            agent.put(eventsPath).type('json').send([{}])
                 .end((err: Error, res: Response) => {
                     pErr(err);
                     expect(res.status).toBe(BAD_REQUEST);

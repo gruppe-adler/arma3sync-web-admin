@@ -1,28 +1,30 @@
-/******************************************************************************
- *                          Fetch and display users
- ******************************************************************************/
+let eventsModel;
 
 displayEvents();
 
-
 function displayEvents() {
-    httpGet('/api/events')
-        .then(response => response.json())
-        .then((response) => {
-            let events = response.list;
+    Promise
+        .all([httpGet('/api/addons').then(res => res.json()), httpGet('/api/events').then(res => res.json())])
+        .then((result) => {
+            let addons = result[0];
+            let events = result[1];
+
+            eventsModel = events;
+
             let eventContainer = document.getElementById('event-list');
             let thList = events.map(event => `<th title="${event.description}">${event.name}</th>`);
-            let modList = unique(events.map(event => Object.getOwnPropertyNames(event.addonNames)).reduce((prev, cur) => prev.concat(cur), [])).sort();
+            let modList = addons.map(a => a.name);
             let rows = modList.map(mod => {
                 let modCell = `<th scope="row">${mod}</th>`;
                 let cells = events.map(event => {
-                    let isActive = event.addonNames[mod] !== undefined;
-                    return `<td><input type="checkbox" name="${event.name}_${mod}" value="${isActive}" ${isActive ? "checked" : ""}/></td>`
+                    let isActive = event.addonNames.indexOf(mod) !== -1;
+                    return `<td><input type="checkbox" data-event="${event.name}" data-addon="${mod}" data-initial="${isActive}" ${isActive ? "checked" : ""}/></td>`
                 });
                 return `<tr>${modCell} ${cells.join('')}</tr>`
             });
 
-            eventContainer.innerHTML = `<table>
+            eventContainer.innerHTML = `
+                <table>
                     <thead>
                         <th></th>${thList.join()}                  
                     </thead>
@@ -32,129 +34,48 @@ function displayEvents() {
                     <tfoot><th></th>${thList.join()}</tfoot>
                 </table>
                 `;
+            eventContainer.querySelectorAll('input[type=checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', checkboxListener);
+
+            })
         });
 }
 
-function unique(array) {
-    let existing = [];
-    return array.filter((element) => {
-        if (existing.indexOf(element) === -1) {
-            existing.push(element);
-            return true;
-        }
-    })
-}
-
-/******************************************************************************
- *                        Add, Edit, and Delete Users
- ******************************************************************************/
-
-document.getElementById('save-event-list').addEventListener('click', () => {
-    let eventList = []; // TODO the api structure is shit. this must be improved
-    document.querySelectorAll('#event-list input[type=checkbox]').forEach((checkbox) => {
-        if (checkbox.checked) {
-
-        }
-    });
-});
-
-document.addEventListener('click', function (event) {
-    event.preventDefault();
-    if (event.target.matches('#add-user-btn')) {
-        addUser();
-    } else if (event.target.matches('.edit-user-btn')) {
-        showEditView();
-    } else if (event.target.matches('.cancel-edit-btn')) {
-        cancelEdit();
-    } else if (event.target.matches('.submit-edit-btn')) {
-        submitEdit();
-    } else if (event.target.matches('.delete-user-btn')) {
-        deleteUser();
+function checkboxListener() {
+    const checked = this.checked;
+    const eventModel = eventsModel.find(event => event.name === this.dataset.event);
+    const addon = this.dataset.addon;
+    const eventAddonIndex = eventModel.addonNames.indexOf(addon);
+    if ((eventAddonIndex !== -1) && !checked) {
+        eventModel.addonNames = eventModel.addonNames.splice(eventAddonIndex, 1);
     }
-}, false);
-
-
-function addUser() {
-    var nameInput = document.getElementById('name-input');
-    var emailInput = document.getElementById('email-input');
-    var data = {
-        user: {
-            name: nameInput.value,
-            email: emailInput.value
-        },
-    };
-    httpPost('/api/users/add', data)
-        .then(() => {
-            displayUsers();
-        })
+    if ((eventAddonIndex === -1) && checked) {
+        eventModel.addonNames.push(addon);
+    }
 }
 
-
-function showEditView() {
-    var userEle = event.target.parentNode.parentNode;
-    var normalView = userEle.getElementsByClassName('normal-view')[0];
-    var editView = userEle.getElementsByClassName('edit-view')[0];
-    normalView.style.display = 'none';
-    editView.style.display = 'block';
-}
-
-
-function cancelEdit() {
-    var userEle = event.target.parentNode.parentNode;
-    var normalView = userEle.getElementsByClassName('normal-view')[0];
-    var editView = userEle.getElementsByClassName('edit-view')[0];
-    normalView.style.display = 'block';
-    editView.style.display = 'none';
-}
-
+document.querySelector('#save-event-list').addEventListener('click', submitEdit);
+document.querySelector('#reload-event-list').addEventListener('click', displayEvents);
 
 function submitEdit() {
-    var userEle = event.target.parentNode.parentNode;
-    var nameInput = userEle.getElementsByClassName('name-edit-input')[0];
-    var emailInput = userEle.getElementsByClassName('email-edit-input')[0];
-    var id = event.target.getAttribute('data-user-id');
-    var data = {
-        user: {
-            name: nameInput.value,
-            email: emailInput.value,
-            id: id
-        }
-    };
-	httpPut('/api/users/update', data)
-        .then(() => {
-            displayUsers();
-        })
+    document.getElementById('save-event-list').enabled = false;
+    document.getElementById('reload-event-list').enabled = false;
+    httpPut('/api/events', eventsModel).then(() => {
+        document.getElementById('save-event-list').enabled = true;
+        document.getElementById('reload-event-list').enabled = true;
+    }, (err) => {
+        console.log(err);
+        alert('halp, something bad happened');
+    });
 }
-
-
-function deleteUser() {
-    var id = event.target.getAttribute('data-user-id');
-	httpDelete('/api/users/delete/' + id)
-        .then(() => {
-            displayUsers();
-        })
-}
-
 
 function httpGet(path) {
     return fetch(path, getOptions('GET'))
 }
 
-
-function httpPost(path, data) {
-    return fetch(path, getOptions('POST', data));
-}
-
-
 function httpPut(path, data) {
     return fetch(path, getOptions('PUT', data));
 }
-
-
-function httpDelete(path) {
-    return fetch(path, getOptions('DELETE'));
-}
-
 
 function getOptions(verb, data) {
     var options = {
