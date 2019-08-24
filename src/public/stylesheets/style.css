@@ -41,6 +41,18 @@ body .users-column .user-display-ele .edit-view {
   padding: 2px;
 }
 
+#event-list th {
+  text-align: left;
+}
+
+#event-list td {
+  text-align: center;
+}
+
+#event-list label {
+  display: inline-block;
+}
+
 /*checkboxes : color depending on changed status */
 
 input[type="checkbox"] {
