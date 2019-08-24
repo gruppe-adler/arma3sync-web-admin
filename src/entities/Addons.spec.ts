@@ -1,4 +1,4 @@
-import {Addons} from 'src/entities/Addons';
+import {Addons} from './Addons';
 import {A3sSyncTreeDirectory} from 'arma3sync-lib/dist/model/a3sSync';
 
 describe(Addons.name, () => {

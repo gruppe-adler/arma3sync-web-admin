@@ -1,3 +1,4 @@
+import '../env/index';
 import app from './Server';
 import { logger } from './shared';
 
