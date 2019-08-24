@@ -35,12 +35,12 @@ function displayEvents() {
             eventContainer.innerHTML = `
                 <table>
                     <thead>
-                        <th></th>${thList.join()}                  
+                        <th></th>${thList.join('')}
                     </thead>
                     <tbody>
                         ${rows.join('\n')}
                     </tbody>
-                    <tfoot><th></th>${thList.join()}</tfoot>
+                    <tfoot><th></th>${thList.join('')}</tfoot>
                 </table>
                 `;
             eventContainer.querySelectorAll('input[type=checkbox]').forEach(checkbox => {

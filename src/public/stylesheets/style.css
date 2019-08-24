@@ -45,7 +45,7 @@ body .users-column .user-display-ele .edit-view {
   text-align: left;
 }
 
-#event-list td {
+#event-list td, #event-list tr:nth-child(1) th {
   text-align: center;
 }
 
