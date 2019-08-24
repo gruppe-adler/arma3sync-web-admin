@@ -6,26 +6,11 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "module": "commonjs",
-    "outDir": "dist",
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
     "target": "es6",
     "moduleResolution": "node",
-    "paths": {
-      "@daos": [
-        "src/daos"
-      ],
-      "@entities": [
-        "src/entities"
-      ],
-      "@shared": [
-        "src/shared"
-      ],
-      "@server": [
-        "src/Server"
-      ]
-    },
     "types": [
       "node"
     ],

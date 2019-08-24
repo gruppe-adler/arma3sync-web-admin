@@ -1,4 +1,4 @@
-import {Events} from 'src/entities/Events';
+import {Events} from './Events';
 import {A3sDirectory} from 'arma3sync-lib';
 
 export class A3sFacade {

@@ -1,8 +1,8 @@
 import {Request, Response, Router} from 'express';
 import {A3sDirectory} from 'arma3sync-lib';
-import {Events} from 'src/entities/Events';
-import {A3sFacade} from 'src/entities/A3sFacade';
-import {logger} from '@shared';
+import {Events} from '../entities/Events';
+import {A3sFacade} from '../entities/A3sFacade';
+import {logger} from '../shared';
 import {OK} from 'http-status-codes';
 
 // Init router and path

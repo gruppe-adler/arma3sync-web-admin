@@ -6,7 +6,7 @@ import path from 'path';
 import BaseRouter from './routes';
 import passport from 'passport';
 import {BasicStrategy} from 'passport-http';
-import {User} from '@entities';
+import {User} from './entities';
 
 // Init express
 const app = express();

@@ -1,5 +1,5 @@
 import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
-import {Event, IClientEvent} from 'src/entities/Event';
+import {Event, IClientEvent} from './Event';
 
 export type IClientEvents = ArrayLike<IClientEvent>;
 

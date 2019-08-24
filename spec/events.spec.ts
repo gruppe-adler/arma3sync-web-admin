@@ -1,9 +1,9 @@
-import app from '@server';
+import app from '../src/Server';
 import supertest from 'supertest';
 
 import {BAD_REQUEST, INTERNAL_SERVER_ERROR, OK} from 'http-status-codes';
 import {Response, SuperTest, Test} from 'supertest';
-import {logger, pErr} from '@shared';
+import {logger, pErr} from 'src/shared';
 import {IClientEvent} from 'src/entities/Event';
 import {A3sFacade} from 'src/entities/A3sFacade';
 import {Events} from 'src/entities/Events';

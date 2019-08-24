@@ -1,6 +1,6 @@
 import find from 'find';
 import Jasmine from 'jasmine';
-import { logger } from '@shared';
+import { logger } from '../src/shared';
 
 // Init Jasmine
 const jasmine = new Jasmine(null);
