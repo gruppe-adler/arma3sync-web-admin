@@ -11,7 +11,6 @@ import {A3sDirectory} from 'arma3sync-lib';
 import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
 
 describe('Users Routes', () => {
-
     const eventsPath = '/api/events';
     let agent: SuperTest<Test>;
     const eventsFromA3s: A3sEventsDto = {
@@ -63,7 +62,6 @@ describe('Users Routes', () => {
 
         it(`should return a JSON object containing an error message and a status code of
             "${INTERNAL_SERVER_ERROR}" if the there's an internal error.`, (done) => {
-
             spyOn(A3sFacade.prototype, 'readEvents').and.throwError('foo');
 
             agent.get(eventsPath)
@@ -82,12 +80,13 @@ describe('Users Routes', () => {
             {name: 'weekly co-op', description: 'what we do every week', addonNames: ['@tfar', '@ace', '@cba']},
             {name: 'special tvt', description: '', addonNames: ['@tfar', '@ace', '@cba', '@specialz']},
         ]);
-
         it(`should return a status code of "${OK}" if the request was successful.`, (done) => {
-
             spyOn(A3sDirectory.prototype, 'setEvents').and.returnValue(Promise.resolve());
-
-            agent.put(eventsPath).type('json').send(events)
+            agent
+                .put(eventsPath)
+                .type('json')
+                .auth('test', 'test')
+                .send(events)
                 .end((err: Error, res: Response) => {
                     pErr(err);
                     expect(res.status).toBe(OK);
@@ -100,14 +99,18 @@ describe('Users Routes', () => {
         });
 
         it(`should return a status code of "${BAD_REQUEST}" if the request contained shit.`, (done) => {
-
-            agent.put(eventsPath).type('json').send([{}])
+            agent
+                .put(eventsPath)
+                .type('json')
+                .auth('test', 'test')
+                .send([{}])
                 .end((err: Error, res: Response) => {
                     pErr(err);
                     expect(res.status).toBe(BAD_REQUEST);
-                    expect(res.body.error).toBeUndefined();
+                    expect(res.body.error).toEqual({message: 'bad event'});
                     done();
                 });
         });
+
     });
 });

@@ -28,9 +28,20 @@ router.get('/events', anonymous, async (req: Request, res: Response) => {
 
 router.put('/events', httpBasic, async (req: Request, res: Response) => {
     const events = req.body as Events;
-    logger.info(JSON.stringify(events));
     if (!events && !Array.isArray(events)) {
-        return res.status(BAD_REQUEST).send();
+        return res.status(BAD_REQUEST).send({error: {message: 'not an array'}});
+    }
+    if (events.some((event: any) => {
+        if ((typeof event.name !== 'string') ||
+            (typeof event.description !== 'string') ||
+            !event.addonNames ||
+            !Array.isArray(event.addonNames) ||
+            event.addonNames.some((name: any) => (typeof name) !== 'string')
+        ) {
+            return true;
+        }
+    })) {
+        return res.status(BAD_REQUEST).send({error: {message: 'bad event'}});
     }
     try {
         await a3sFacade.writeEvents(events);
