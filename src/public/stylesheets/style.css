@@ -32,21 +32,18 @@ body .users-column .user-display-ele .edit-view {
   display: none;
 }
 
-#event-list > table {
+#event-list table {
   border-spacing: 0;
   border-collapse: collapse;
 }
 #event-list td, #event-list th {
   border: 1px solid gray;
   padding: 2px;
-}
-
-#event-list th {
-  text-align: left;
-}
-
-#event-list td, #event-list tr:nth-child(1) th {
   text-align: center;
+}
+
+#event-list th[scope=row] {
+  text-align: left;
 }
 
 #event-list label {
