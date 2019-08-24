@@ -18,7 +18,17 @@ function displayEvents() {
                 let modCell = `<th scope="row">${mod}</th>`;
                 let cells = events.map(event => {
                     let isActive = event.addonNames.indexOf(mod) !== -1;
-                    return `<td><input type="checkbox" data-event="${event.name}" data-addon="${mod}" data-initial="${isActive}" ${isActive ? "checked" : ""}/></td>`
+                    let id = `checkbox_${event.name}_${mod}`;
+                    return `
+                    <td>
+                        <input type="checkbox"
+                            data-event="${event.name}"
+                            data-addon="${mod}"
+                            data-initial="${isActive}" ${isActive ? "checked" : ""}
+                            id="${id}"
+                        />
+                        <label for="${id}"></label>
+                    </td>`
                 });
                 return `<tr>${modCell} ${cells.join('')}</tr>`
             });

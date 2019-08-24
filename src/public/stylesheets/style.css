@@ -40,3 +40,33 @@ body .users-column .user-display-ele .edit-view {
   border: 1px solid gray;
   padding: 2px;
 }
+
+/*checkboxes : color depending on changed status */
+
+input[type="checkbox"] {
+  display:none;
+}
+input[type="checkbox"] + label::before {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  border: 2px solid black;
+  background-color: #fff;
+  display: block;
+  content: "";
+  float: left;
+  margin-right: 5px;
+}
+input[type="checkbox"]:checked + label::before {
+  box-shadow: inset 0 0 0 3px #fff;
+  background-color: black;
+}
+
+input[data-initial="false"]:checked + label::before {
+  background-color: green;
+  border: 2px solid green;
+}
+input[data-initial="true"]:not(:checked) + label::before {
+  border: 2px solid red;
+}
+/**/
