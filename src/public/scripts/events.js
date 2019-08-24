@@ -66,7 +66,7 @@ function checkboxListener() {
     const addon = this.dataset.addon;
     const eventAddonIndex = eventModel.addonNames.indexOf(addon);
     if ((eventAddonIndex !== -1) && !checked) {
-        eventModel.addonNames = eventModel.addonNames.splice(eventAddonIndex, 1);
+        eventModel.addonNames.splice(eventAddonIndex, 1);
     }
     if ((eventAddonIndex === -1) && checked) {
         eventModel.addonNames.push(addon);
@@ -82,6 +82,7 @@ function submitEdit() {
     httpPut('/api/events', eventsModel).then(() => {
         document.getElementById('save-event-list').enabled = true;
         document.getElementById('reload-event-list').enabled = true;
+        displayEvents();
     }, (err) => {
         console.log(err);
         alert('halp, something bad happened');

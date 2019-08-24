@@ -96,11 +96,8 @@ const wipAddonList = [
 });
 
 router.get('/addons', anonymous, (req: Request, res: Response) => {
-    logger.warn('foo');
     try {
-        const addons = wipAddonList;
-        logger.warn(addons);
-        return res.status(OK).send(addons);
+        return res.status(OK).send(wipAddonList);
     } catch (e) {
         logger.error(e);
         return res.status(500).send();
