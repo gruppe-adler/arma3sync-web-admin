@@ -59,7 +59,7 @@ describe(Addons.name, () => {
 
     describe(Addons.prototype.getAddonNames.name, () => {
         it(`should return a list of addon names`, (done) => {
-            expect(new Addons(a3sSyncTree).getAddonNames()).toEqual(['@ace', '@cba']);
+            expect(new Addons(a3sSyncTree).getAddonNames()).toEqual(['@ace', '@cba', 'GM']);
             done();
         });
     });

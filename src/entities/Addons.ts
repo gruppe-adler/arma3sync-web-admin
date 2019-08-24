@@ -23,6 +23,6 @@ export class Addons {
                 addons.push(obj.name);
             }
         });
-        return addons;
+        return addons.concat('GM');
     }
 }

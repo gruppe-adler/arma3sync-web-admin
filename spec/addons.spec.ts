@@ -83,7 +83,7 @@ describe('addons route', () => {
             spyOn(A3sDirectory.prototype, 'getSync').and.returnValue(Promise.resolve(a3sSyncTree));
 
             const addons: IClientAddon[] = [
-                {name: '@ace'}, {name: '@cba'},
+                {name: '@ace'}, {name: '@cba'}, {name: 'GM'},
             ];
 
             agent
