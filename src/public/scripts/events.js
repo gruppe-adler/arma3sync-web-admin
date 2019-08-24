@@ -34,10 +34,19 @@ function displayEvents() {
                     <tfoot><th></th>${thList.join()}</tfoot>
                 </table>
                 `;
-            eventContainer.querySelectorAll('input[type=checkbox').forEach(checkbox => {
+            eventContainer.querySelectorAll('input[type=checkbox]').forEach(checkbox => {
                 checkbox.addEventListener('change', checkboxListener);
+            });
 
-            })
+            const missingMods = [];
+            events.forEach(event => event.addonNames.forEach(mod => {
+                if ((modList.indexOf(mod) === -1) && (missingMods.indexOf(mod) === -1)) {
+                    missingMods.push(mod);
+                }
+            }));
+            if (missingMods.length > 0) {
+                alert(`DANGER! these mods seem to not be available, but they are part of existing events: ${missingMods.join(', ')}`);
+            }
         });
 }
 
