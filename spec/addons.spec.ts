@@ -2,12 +2,12 @@ import app from '../src/Server';
 import supertest from 'supertest';
 
 import {Response, SuperTest, Test} from 'supertest';
-import {A3SSyncTree, A3SSyncTreeNode} from 'arma3sync-lib/dist/model/a3sSync';
 import {Addons} from 'src/entities/Addons';
+import {A3sSyncTreeDirectory, A3sSyncTreeNode} from 'arma3sync-lib/dist/model/a3sSync';
 
 describe(Addons.name, () => {
 
-    const a3sSyncTree: A3SSyncTreeNode = {
+    const a3sSyncTree: A3sSyncTreeDirectory = {
         name: 'racine',
         destinationPath: 'destinationPath is a lie',
         deleted: false,
@@ -17,12 +17,16 @@ describe(Addons.name, () => {
         list: [
             {
                 deleted: false,
-                // hidden: false,
+                hidden: false,
                 markAsAddon: true,
                 updated: false,
-                list: [],
-                name: "@ace",
-            }
+                list: [{
+                    sha1: '',
+                    compressedSize: 0,
+                    compressed: false,
+                }],
+                name: '@ace',
+            },
         ],
     };
     export interface A3SSyncTreeLeaf extends A3SSyncTree {
