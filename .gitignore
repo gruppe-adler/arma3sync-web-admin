@@ -3,3 +3,5 @@ node_modules/
 env/production.env
 dist/
 src/**/*.js
+spec/**/*.js
+*.map
