@@ -3,13 +3,10 @@ import {A3sDirectory} from 'arma3sync-lib';
 import {Events} from '../entities/Events';
 import {A3sFacade} from '../entities/A3sFacade';
 import {logger} from '../shared';
-import {OK} from 'http-status-codes';
+import {BAD_REQUEST, INTERNAL_SERVER_ERROR, OK} from 'http-status-codes';
+import {anonymous, httpBasic} from '../authenticationStrategies';
 
-// Init router and path
 const router = Router();
-
-// Add sub-routes
-// router.use('/users', UserRouter);
 
 const repoDir: string = process.env.ARMA3SYNC_DIR || '';
 if (!repoDir) {
@@ -18,7 +15,7 @@ if (!repoDir) {
 
 const a3sFacade = new A3sFacade(new A3sDirectory(repoDir));
 
-router.get('/events', async (req: Request, res: Response) => {
+router.get('/events', anonymous, async (req: Request, res: Response) => {
     try {
         const events = await a3sFacade.readEvents();
         return res.send(events);
@@ -29,21 +26,19 @@ router.get('/events', async (req: Request, res: Response) => {
     }
 });
 
-router.put('/events', async (req: Request, res: Response) => {
+router.put('/events', httpBasic, async (req: Request, res: Response) => {
     const events = req.body as Events;
     logger.info(JSON.stringify(events));
     if (!events && !Array.isArray(events)) {
-        res.status(400);
-        return res.send();
+        return res.status(BAD_REQUEST).send();
     }
     try {
         await a3sFacade.writeEvents(events);
     } catch (e) {
         logger.error(e.message);
-        res.status(400);
-        return res.send();
+        return res.status(INTERNAL_SERVER_ERROR).send();
     }
-    res.send();
+    res.status(OK).send({message: 'done'});
 });
 
 const wipAddonList = [
@@ -100,13 +95,15 @@ const wipAddonList = [
     return {name};
 });
 
-router.get('/addons', async (req: Request, res: Response) => {
+router.get('/addons', anonymous, (req: Request, res: Response) => {
+    logger.warn('foo');
     try {
-        const addons = await Promise.resolve(wipAddonList);
+        const addons = wipAddonList;
+        logger.warn(addons);
         return res.status(OK).send(addons);
     } catch (e) {
         logger.error(e);
-        return res.status(500);
+        return res.status(500).send();
     }
 });
 
