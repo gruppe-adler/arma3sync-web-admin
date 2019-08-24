@@ -52,63 +52,12 @@ router.put('/events', httpBasic, async (req: Request, res: Response) => {
     res.status(OK).send({message: 'done'});
 });
 
-const wipAddonList = [
-    '@ace',
-    '@ace_compat_rhs_afrf3',
-    '@ace_compat_rhs_gref3',
-    '@ace_compat_rhs_usf3',
-    '@ace_optionals',
-    '@acex',
-    '@achilles',
-    '@advanced rappelling',
-    '@advanced sling loading',
-    '@advanced urban rappelling',
-    '@anizay',
-    '@backpackonchest',
-    '@cba_a3',
-    '@cham',
-    '@cup_terrains_core',
-    '@cup_terrains_maps',
-    '@cup_wheeledvehicles_suv',
-    '@diwako_dui',
-    '@dynasound2',
-    '@enhanced movement',
-    '@fhq_accessories',
-    '@global mobilization - demo vehicle',
-    '@grad_captivewalkinganimation',
-    '@grad_minui',
-    '@grad_slinghelmet',
-    '@grad_trenches',
-    '@gruppe_adler_additionals',
-    '@gruppe_adler_mod',
-    '@jbad',
-    '@lythium',
-    '@mbg_buildings_3',
-    '@niarsenal',
-    '@prei khmaoch luong',
-    '@projectopfor',
-    '@rds_civ',
-    '@redd\'n\'tank vehicles',
-    '@rhsafrf',
-    '@rhsgref',
-    '@rhssaf',
-    '@rhsusaf',
-    '@rosche',
-    '@ruha',
-    '@smm_german_uniforms',
-    '@splendid_smoke',
-    '@suppress',
-    '@tembelan island',
-    '@tfar',
-    '@vinjesvingen',
-    'GM',
-].map((name) => {
-    return {name};
-});
-
-router.get('/addons', anonymous, (req: Request, res: Response) => {
+router.get('/addons', anonymous, async (req: Request, res: Response) => {
     try {
-        return res.status(OK).send(wipAddonList);
+        const addonNames = await a3sFacade.getAvailableAddonNames();
+        return res.status(OK).send(addonNames.map((name) => {
+            return {name};
+        }));
     } catch (e) {
         logger.error(e);
         return res.status(500).send();

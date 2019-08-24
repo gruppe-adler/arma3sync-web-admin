@@ -1,17 +1,7 @@
-import app from '../src/Server';
-import supertest from 'supertest';
-
-import {OK} from 'http-status-codes';
-import {Response, SuperTest, Test} from 'supertest';
-import {logger, pErr} from 'src/shared';
-import {Events} from 'src/entities/Events';
-import {A3sDirectory} from 'arma3sync-lib';
-import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
+import {Addons} from 'src/entities/Addons';
 import {A3sSyncTreeDirectory} from 'arma3sync-lib/dist/model/a3sSync';
 
-describe('addons route', () => {
-    const addonsPath = '/api/addons';
-    let agent: SuperTest<Test>;
+describe(Addons.name, () => {
     const a3sSyncTree: A3sSyncTreeDirectory = {
         name: 'racine',
         deleted: false,
@@ -67,35 +57,10 @@ describe('addons route', () => {
         ],
     };
 
-    interface IClientAddon {
-        name: string;
-    }
-
-    beforeAll((done) => {
-        agent = supertest.agent(app);
-        spyOn(logger, 'error').and.stub(); // avoid error output during tests TODO: log into file instead
-        done();
-    });
-
-    describe(`"GET:${addonsPath}"`, () => {
-
-        it(`should return a list of addons`, (done) => {
-            spyOn(A3sDirectory.prototype, 'getSync').and.returnValue(Promise.resolve(a3sSyncTree));
-
-            const addons: IClientAddon[] = [
-                {name: '@ace'}, {name: '@cba'},
-            ];
-
-            agent
-                .get(addonsPath)
-                .end((err: Error, res: Response) => {
-                    pErr(err);
-                    expect(res.status).toBe(OK);
-                    const retAddons = res.body;
-                    expect(retAddons).toEqual(addons);
-                    expect(res.body.error).toBeUndefined();
-                    done();
-                });
+    describe(Addons.prototype.getAddonNames.name, () => {
+        it(`should return a list of addon names`, (done) => {
+            expect(new Addons(a3sSyncTree).getAddonNames()).toEqual(['@ace', '@cba']);
+            done();
         });
     });
 });

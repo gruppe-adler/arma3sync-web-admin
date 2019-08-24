@@ -11,6 +11,7 @@ jasmine.loadConfig({
     spec_dir: 'spec',
     spec_files: [
         './**/*.spec.ts',
+        '../src/**/*.spec.ts',
     ],
     stopSpecOnExpectationFailure: false,
 });

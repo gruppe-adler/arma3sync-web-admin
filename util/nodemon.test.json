@@ -1,5 +1,5 @@
 {
-  "watch": ["spec"],
+  "watch": ["spec", "src"],
   "ext": "spec.ts",
   "ignore": ["spec/support"],
   "exec": "cross-env ENV_FILE=test ts-node -r ./env -r tsconfig-paths/register ./spec/start.ts"
