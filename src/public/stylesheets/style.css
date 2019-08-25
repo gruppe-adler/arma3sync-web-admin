@@ -40,6 +40,8 @@ body .users-column .user-display-ele .edit-view {
   border: 1px solid gray;
   padding: 2px;
   text-align: center;
+  vertical-align: baseline;
+  min-width: 64px;
 }
 
 #event-list th[scope=row] {
@@ -79,3 +81,15 @@ input[data-initial="true"]:not(:checked) + label::before {
   border: 2px solid red;
 }
 /**/
+
+button[name=delete_event], button[name=edit_event] {
+  margin: 2px;
+}
+
+.event-controls {
+  display: none;
+}
+
+*:hover > .event-controls {
+  display: block;
+}
