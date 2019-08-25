@@ -22,7 +22,7 @@ Web admin tool for [Arma3Sync](https://forums.bohemia.net/forums/topic/152942-ar
 * `npm run build`
 * `node src/start.js`
 
-^ yes there's some improvable weirdness here
+^ yes there's some weirdness here in need of improvement
 
 ## development notes
 
