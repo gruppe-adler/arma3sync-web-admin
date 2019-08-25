@@ -5,10 +5,10 @@ Web admin tool for [Arma3Sync](https://forums.bohemia.net/forums/topic/152942-ar
 ## features
 
 * edit events
+* add and remove events
 
 ## todo
 
-* add and remove events
 * generate sync files
 * upload mods
 * edit repo options
