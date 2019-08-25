@@ -15,14 +15,45 @@ describe(Addons.name, () => {
                 hidden: false,
                 markAsAddon: true,
                 updated: false,
-                list: [{
-                    deleted: false,
-                    hidden: false,
-                    markAsAddon: false,
-                    updated: false,
-                    list: [],
-                    name: 'addons',
-                }],
+                list: [
+                    {
+                        deleted: false,
+                        hidden: false,
+                        markAsAddon: false,
+                        updated: false,
+                        list: [],
+                        name: 'addons',
+                    },
+                    {
+                        deleted: false,
+                        hidden: false,
+                        markAsAddon: false,
+                        updated: false,
+                        list: [
+                            {
+                                deleted: false,
+                                hidden: false,
+                                markAsAddon: true,
+                                updated: false,
+                                list: [
+                                    {
+                                    deleted: false,
+                                        hidden: false,
+                                        markAsAddon: false,
+                                        name: 'foo.pbo',
+                                        updated: false,
+                                        compressed: false,
+                                        compressedSize: 0,
+                                        size: 192,
+                                        sha1: 'abcdef',
+                                    },
+                                ],
+                                name: '@some_crazy_shit_deeply_hidden',
+                            },
+                        ],
+                        name: 'optionals',
+                    },
+                ],
                 name: '@ace',
             },
             {
