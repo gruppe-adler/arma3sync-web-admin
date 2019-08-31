@@ -3,7 +3,8 @@ import express from 'express';
 import { Request, Response } from 'express';
 import logger from 'morgan';
 import path from 'path';
-import BaseRouter from './routes';
+import ApiRouter from './routes/index';
+
 import {anonymous} from './authenticationStrategies';
 import {initialize, session} from 'passport';
 
@@ -18,7 +19,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(initialize());
 app.use(session());
-app.use('/api', BaseRouter);
+
+app.use('/api', ApiRouter);
 
 /**
  * Point express to the 'views' directory. If you're using a
@@ -34,7 +36,10 @@ app.use(express.static(staticDir));
 app.get('/events', anonymous, (req: Request, res: Response) => {
     res.sendFile('events.html', {root: viewsDir});
 });
-app.get('*', anonymous, (req: Request, res: Response) => {
+app.get('/sync', anonymous, (req: Request, res: Response) => {
+    res.sendFile('sync.html', {root: viewsDir});
+});
+app.get('/', anonymous, (req: Request, res: Response) => {
     res.sendFile('index.html', {root: viewsDir});
 });
 

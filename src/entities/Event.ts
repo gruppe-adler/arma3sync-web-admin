@@ -1,4 +1,4 @@
-import {A3sEventDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
+import {A3sEventDto} from 'arma3sync-lib/dist/model/A3sEventDto';
 
 export interface IClientEvent {
     name: string;

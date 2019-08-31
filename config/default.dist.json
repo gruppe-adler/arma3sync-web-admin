@@ -1,0 +1,8 @@
+{
+  "arma3sync-lib": {
+    "repoPath": "/var/lib/arma3sync/repo",
+    "publicURL": "http://my-arma-community.com/modset"
+  },
+  "httpbasic-user": "haxx0r",
+  "httpbasic-password": "s3cr3t"
+}

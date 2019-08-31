@@ -7,8 +7,8 @@ import {logger, pErr} from 'src/shared';
 import {IClientEvent} from 'src/entities/Event';
 import {A3sFacade} from 'src/entities/A3sFacade';
 import {Events} from 'src/entities/Events';
-import {A3sDirectory} from 'arma3sync-lib';
-import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
+import {A3sDirectory} from 'arma3sync-lib/dist/service/A3sDirectory';
+import {A3sEventsDto} from 'arma3sync-lib/dist/model/A3sEventsDto';
 
 describe('Users Routes', () => {
     const eventsPath = '/api/events';

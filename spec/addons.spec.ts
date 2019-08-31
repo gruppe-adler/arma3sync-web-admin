@@ -4,21 +4,18 @@ import supertest from 'supertest';
 import {OK} from 'http-status-codes';
 import {Response, SuperTest, Test} from 'supertest';
 import {logger, pErr} from 'src/shared';
-import {Events} from 'src/entities/Events';
-import {A3sDirectory} from 'arma3sync-lib';
-import {A3sEventsDto} from 'arma3sync-lib/dist/model/a3sEventsDto';
-import {A3sSyncTreeDirectory} from 'arma3sync-lib/dist/model/a3sSync';
+import {A3sSyncTreeDirectoryDto} from 'arma3sync-lib/dist/model/a3sSync';
+import {A3sDirectory} from 'arma3sync-lib/dist/service/A3sDirectory';
 
 describe('addons route', () => {
     const addonsPath = '/api/addons';
     let agent: SuperTest<Test>;
-    const a3sSyncTree: A3sSyncTreeDirectory = {
+    const a3sSyncTree: A3sSyncTreeDirectoryDto = {
         name: 'racine',
         deleted: false,
         hidden: false,
         updated: false,
         markAsAddon: false,
-        parent: null,
         list: [
             {
                 deleted: false,
@@ -59,10 +56,8 @@ describe('addons route', () => {
                         },
                     ],
                     name: 'addons',
-                    parent: null,
                 }],
                 name: '@cba',
-                parent: null,
             },
         ],
     };

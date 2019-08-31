@@ -1,7 +1,8 @@
 import {Events} from './Events';
-import {A3sDirectory} from 'arma3sync-lib';
 import {Addons} from './Addons';
-import {A3sSyncTreeDirectory} from 'arma3sync-lib/dist/model/a3sSync';
+import {A3sDirectory} from 'arma3sync-lib/dist/service/A3sDirectory';
+import {A3sSyncTreeDirectoryDto} from 'arma3sync-lib/dist/model/a3sSync';
+import {A3sServerInfoDto} from 'arma3sync-lib/dist/model/A3sServerInfoDto';
 
 export class A3sFacade {
     constructor(private directory: A3sDirectory) {}
@@ -15,8 +16,12 @@ export class A3sFacade {
     }
 
     public async getAvailableAddonNames(): Promise<string[]> {
-         const sync: A3sSyncTreeDirectory = await this.directory.getSync();
+         const sync: A3sSyncTreeDirectoryDto = await this.directory.getSync();
 
          return new Addons(sync).getAddonNames();
+    }
+
+    public getServerInfo(): Promise<A3sServerInfoDto> {
+        return this.directory.getServerInfo();
     }
 }

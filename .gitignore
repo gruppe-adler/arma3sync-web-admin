@@ -5,3 +5,6 @@ dist/
 src/**/*.js
 spec/**/*.js
 *.map
+config/default.json
+config/test.json
+config/production.json

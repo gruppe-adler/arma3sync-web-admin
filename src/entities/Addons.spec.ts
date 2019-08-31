@@ -1,14 +1,13 @@
 import {Addons} from './Addons';
-import {A3sSyncTreeDirectory} from 'arma3sync-lib/dist/model/a3sSync';
+import {A3sSyncTreeDirectoryDto} from 'arma3sync-lib/dist/model/a3sSync';
 
 describe(Addons.name, () => {
-    const a3sSyncTree: A3sSyncTreeDirectory = {
+    const a3sSyncTree: A3sSyncTreeDirectoryDto = {
         name: 'racine',
         deleted: false,
         hidden: false,
         updated: false,
         markAsAddon: false,
-        parent: null,
         list: [
             {
                 deleted: false,
@@ -80,10 +79,8 @@ describe(Addons.name, () => {
                         },
                     ],
                     name: 'addons',
-                    parent: null,
                 }],
                 name: '@cba',
-                parent: null,
             },
         ],
     };

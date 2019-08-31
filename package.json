@@ -15,10 +15,12 @@
     "@server": "dist/Server"
   },
   "dependencies": {
+    "@types/config": "0.0.34",
     "@types/passport": "^1.0.1",
     "@types/passport-anonymous": "^1.0.3",
     "@types/passport-http": "^0.3.8",
-    "arma3sync-lib": "^0.0.10",
+    "arma3sync-lib": "^0.0.13",
+    "config": "^3.2.2",
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
     "dotenv": "^8.1.0",

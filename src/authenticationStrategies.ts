@@ -2,14 +2,15 @@ import passport from 'passport';
 import {Strategy as AnonymousStrategy} from 'passport-anonymous';
 import {BasicStrategy} from 'passport-http';
 import {User} from './entities';
+import {get} from 'config';
 
-const basicPass = process.env.A3S_PASSWORD;
+const basicPass = get<string>('httpbasic-password');
 if (!basicPass) {
-    throw new Error('missing A3S_PASSWORD in env file');
+    throw new Error('missing httpbasic password');
 }
-const basicUser = process.env.A3S_USER;
+const basicUser = get<string>('httpbasic-user');
 if (!basicUser) {
-    throw new Error('missing A3S_USER in env file');
+    throw new Error('missing httpbasic user');
 }
 
 passport.use(new BasicStrategy((userid: string, password: string, done: (error: any, user?: any) => void) => {
