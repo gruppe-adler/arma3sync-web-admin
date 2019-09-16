@@ -17,7 +17,7 @@ Web admin tool for [Arma3Sync](https://forums.bohemia.net/forums/topic/152942-ar
 ## how to use
 
 * clone
-* create env/production.env
+* create `config/production.json`
 * `npm i`
 * `npm run build`
 * `node src/start.js`
@@ -31,3 +31,5 @@ This is a [NodeJS](https://nodejs.org/) [Express](https://expressjs.com/) app th
 ## what it looks like
 
 ![shitty table](https://i.imgur.com/9syCA01.png)
+
+![overview](https://i.imgur.com/dxOsx0C.png)
