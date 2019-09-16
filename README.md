@@ -32,4 +32,4 @@ This is a [NodeJS](https://nodejs.org/) [Express](https://expressjs.com/) app th
 
 ![shitty table](https://i.imgur.com/9syCA01.png)
 
-![overview](https://i.imgur.com/dxOsx0C.png)
+![overview](https://i.imgur.com/pARGoJ2.png)
