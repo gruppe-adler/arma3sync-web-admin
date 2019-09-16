@@ -31,12 +31,12 @@ document.querySelector('#sync-update').addEventListener('click', async () => {
 
 async function updateRepoInfo() {
     const serverInfo = await (await httpGet('/api/repo')).json();
-    document.querySelector('#repo-info').innerHTML = JSON.stringify(serverInfo);
+    document.querySelector('#repo-info').innerHTML = JSON.stringify(serverInfo, null, '\t');
 }
 
 async function updateAddonlist() {
     const addons = await (await httpGet('/api/addons')).json();
-    document.querySelector('#addon-names').innerHTML = JSON.stringify(addons.map(_ => _.name));
+    document.querySelector('#addon-names').innerHTML = JSON.stringify(addons.map(_ => _.name), null, '\t');
 }
 
 
