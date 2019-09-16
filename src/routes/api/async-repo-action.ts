@@ -9,16 +9,16 @@ let currentRepoActionId = 0;
 let currentRepoActionStatus: 'PENDING'|'FAILED'|'DONE' = 'DONE';
 
 const router = Router();
-router.post('/action/update', httpBasic, async (req: Request, res: Response) => {
+router.post('/update', httpBasic, async (req: Request, res: Response) => {
     return tryRepoAction(() => repoBuildService.update(), res);
 });
 
-router.get('/action/:actionId', (req: Request, res: Response) => {
+router.get('/:actionId', (req: Request, res: Response) => {
     const actionId = parseInt(req.params.actionId, 10);
     return res.status(OK).send({status: (actionId < currentRepoActionId) ? 'DONE' : currentRepoActionStatus});
 });
 
-router.post('/action/init', httpBasic, async (req: Request, res: Response) => {
+router.post('/init', httpBasic, async (req: Request, res: Response) => {
     return tryRepoAction(() => repoBuildService.initializeRepository(), res);
 });
 
@@ -39,6 +39,6 @@ function tryRepoAction(action: () => Promise<any>, res: Response): Response {
         });
     currentRepoActionId += 1;
 
-    return res.status(ACCEPTED).send({id: currentRepoActionId, time: new Date()});
+    return res.status(ACCEPTED).send({actionId: currentRepoActionId, time: new Date()});
 }
 export default router;

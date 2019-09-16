@@ -16,10 +16,18 @@
 <section>
     <h1>sync</h1>
     <div>sync last written at: <span id="sync-last-update"></span></div>
-    <button id="update-sync">update sync</button>
-    <button id="update-zsync">update zsync</button>
-    <button id="update-all">update sycn & zsyncs</button>
+    <button id="sync-update" title="click here after uploading/changing mods in the repository">update sync & generate zsyncs</button>
+    <div>last action status:
+        <div id="last-update-status">---</div>
+    </div>
+    <div id="repo-info">
+
+    </div>
+    <div id="addon-names">
+
+    </div>
 </section>
 </body>
+<script src="/scripts/lib.js"></script>
 <script src="/scripts/sync.js"></script>
 </html>
