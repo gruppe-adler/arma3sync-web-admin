@@ -31,9 +31,16 @@ document.querySelector('#sync-update').addEventListener('click', async () => {
 
 async function updateRepoInfo() {
     const serverInfo = await (await httpGet('/api/repo')).json();
-    // document.querySelector('#repo-info').innerHTML = JSON.stringify(serverInfo, null, '\t');
     ['revision', 'buildDate', 'numberOfFiles', 'totalFilesSize'].forEach((name) => {
-        document.querySelector(`#${name}`).textContent = serverInfo[name];
+        let content = serverInfo[name];
+
+        let element = document.querySelector(`#${name}`);
+        element.setAttribute('title', content);
+
+        if (name === 'totalFilesSize') {
+            content = formatMemory(content);
+        }
+        element.textContent = content;
     });
 }
 
