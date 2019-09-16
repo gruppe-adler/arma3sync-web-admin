@@ -23,6 +23,6 @@
     "spec/**/*.ts"
   ],
   "exclude": [
-    "src/public/"
+    "web/"
   ]
 }

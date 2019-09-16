@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "ignore": ["web"],
+  "exec": "cross-env NODE_ENV=development NODE_PATH=. ts-node ./src/start.ts"
+}

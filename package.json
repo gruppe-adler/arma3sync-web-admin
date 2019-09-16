@@ -2,17 +2,11 @@
   "name": "arma3sync-web-admin",
   "version": "0.0.0",
   "scripts": {
-    "build": "node ./util/build.js",
-    "lint": "tslint --project \"tsconfig.json\"",
-    "start": "cross-env ENV_FILE=production node -r ./env -r module-alias/register ./dist/start.js",
-    "start-dev": "nodemon --config \"./util/nodemon.json\"",
-    "test": "nodemon --config \"./util/nodemon.test.json\""
-  },
-  "_moduleAliases": {
-    "@daos": "dist/daos",
-    "@entities": "dist/entities",
-    "@shared": "dist/shared",
-    "@server": "dist/Server"
+    "build": "tsc --build tsconfig.prod.json",
+    "lint": "tslint --project tsconfig.json",
+    "start": "cross-env NODE_ENV=production NODE_PATH=. node ./src/start.js",
+    "start-dev": "nodemon --config ./util/nodemon.development.json",
+    "test": "nodemon --config ./util/nodemon.test.json"
   },
   "dependencies": {
     "@types/config": "0.0.34",
@@ -26,7 +20,6 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "http-status-codes": "^1.3.2",
-    "module-alias": "^2.2.1",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-anonymous": "^1.0.1",

@@ -1,9 +1,9 @@
-import '../env/index';
 import app from './Server';
-import { logger } from './shared';
+import {logger} from './shared';
+import {get} from 'config';
 
 // Start the server
-const port = Number(process.env.PORT || 3000);
+const port = get('port');
 app.listen(port, () => {
     logger.info('Express server started on port: ' + port);
 });

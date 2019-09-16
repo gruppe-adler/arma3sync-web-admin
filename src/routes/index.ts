@@ -3,7 +3,7 @@ import {A3sFacade} from '../entities/A3sFacade';
 import {logger} from '../shared';
 import {OK} from 'http-status-codes';
 import {anonymous} from '../authenticationStrategies';
-import AsyncRepoActionRouter from 'src/routes/api/async-repo-action';
+import AsyncRepoActionRouter from './api/async-repo-action';
 import EventsRouter from 'src/routes/api/events';
 import AddonsRouter from 'src/routes/api/addons';
 import {a3sDirectory} from 'arma3sync-lib';

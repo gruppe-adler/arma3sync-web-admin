@@ -1,6 +1,6 @@
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import logger from 'morgan';
 import path from 'path';
 import ApiRouter from './routes/index';
@@ -16,7 +16,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'web')));
 app.use(initialize());
 app.use(session());
 
@@ -29,9 +29,9 @@ app.use('/api', ApiRouter);
  * configure this to only serve the index file while in
  * production mode.
  */
-const viewsDir = path.join(__dirname, 'views');
+const viewsDir = path.join(__dirname, '..', 'web', 'views');
 app.set('views', viewsDir);
-const staticDir = path.join(__dirname, 'public');
+const staticDir = path.join(__dirname, '..', 'web');
 app.use(express.static(staticDir));
 app.get('/events', anonymous, (req: Request, res: Response) => {
     res.sendFile('events.html', {root: viewsDir});
