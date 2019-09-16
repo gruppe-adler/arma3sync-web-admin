@@ -32,11 +32,11 @@ body .users-column .user-display-ele .edit-view {
   display: none;
 }
 
-#event-list table {
+#event-list table, #repo-info table {
   border-spacing: 0;
   border-collapse: collapse;
 }
-#event-list td, #event-list th {
+#event-list td, #event-list th, #repo-info td, #repo-info th {
   border: 1px solid gray;
   padding: 2px;
   text-align: center;
@@ -44,7 +44,7 @@ body .users-column .user-display-ele .edit-view {
   min-width: 64px;
 }
 
-#event-list th[scope=row] {
+#event-list th[scope=row], #repo-info th[scope=row] {
   text-align: left;
 }
 
@@ -91,5 +91,12 @@ button[name=delete_event], button[name=edit_event] {
 }
 
 *:hover > .event-controls {
+  display: block;
+}
+
+#addon-names {
+  margin: 10px;
+}
+#addon-names span {
   display: block;
 }

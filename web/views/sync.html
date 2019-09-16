@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>arma3sync-web-admin</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <title>repository overview & update</title>
 </head>
 <body>
 <section>
@@ -14,18 +15,37 @@
     </nav>
 </section>
 <section>
-    <h1>sync</h1>
-    <div>sync last written at: <span id="sync-last-update"></span></div>
+    <h2>mod synchronization</h2>
     <button id="sync-update" title="click here after uploading/changing mods in the repository">update sync & generate zsyncs</button>
     <div>last action status:
         <div id="last-update-status">---</div>
     </div>
-    <div id="repo-info">
-
-    </div>
-    <div id="addon-names">
-
-    </div>
+    <section id="repo-info">
+        <h2>repository information</h2>
+        <table>
+            <tr>
+                <th scope="row">build date</th>
+                <td id="buildDate"></td>
+            </tr>
+            <tr>
+                <th scope="row">revision</th>
+                <td id="revision"></td>
+            </tr>
+            <tr>
+                <th scope="row">number of files</th>
+                <td id="numberOfFiles"></td>
+            </tr>
+            <tr>
+                <th scope="row">total file size</th>
+                <td id="totalFilesSize"></td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h2>known addons</h2>
+        <div id="addon-names">
+        </div>
+    </section>
 </section>
 </body>
 <script src="/scripts/lib.js"></script>
