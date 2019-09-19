@@ -6,6 +6,7 @@ import {Response, SuperTest, Test} from 'supertest';
 import {logger, pErr} from 'src/shared';
 import {A3sSyncTreeDirectoryDto} from 'arma3sync-lib/dist/model/a3sSync';
 import {A3sDirectory} from 'arma3sync-lib/dist/service/A3sDirectory';
+import {SyncTreeBranch} from 'arma3sync-lib/dist/model/SyncTreeBranch';
 
 describe('addons route', () => {
     const addonsPath = '/api/addons';
@@ -75,7 +76,9 @@ describe('addons route', () => {
     describe(`"GET:${addonsPath}"`, () => {
 
         it(`should return a list of addons`, (done) => {
-            spyOn(A3sDirectory.prototype, 'getSync').and.returnValue(Promise.resolve(a3sSyncTree));
+            spyOn(A3sDirectory.prototype, 'getSync').and.returnValue(
+                Promise.resolve(SyncTreeBranch.fromSyncTreeRoot(a3sSyncTree))
+            );
 
             const addons: IClientAddon[] = [
                 {name: '@ace'}, {name: '@cba'}, {name: 'GM'},

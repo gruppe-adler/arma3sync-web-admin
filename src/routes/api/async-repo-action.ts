@@ -34,7 +34,8 @@ function tryRepoAction(action: () => Promise<any>, res: Response): Response {
             currentRepoActionStatus = 'DONE';
         })
         .catch((error) => {
-            logger.error(error);
+            logger.error('repo action failed with ' + (error && error.message));
+            logger.error(error.stack);
             currentRepoActionStatus = 'FAILED';
         });
     currentRepoActionId += 1;

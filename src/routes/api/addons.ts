@@ -15,7 +15,7 @@ router.get('', anonymous, async (req: Request, res: Response) => {
             return {name};
         }));
     } catch (e) {
-        logger.error(e);
+        logger.error('failed to get addon names ' + (e && e.message));
         return res.status(500).send();
     }
 });

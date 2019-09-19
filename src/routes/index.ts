@@ -20,8 +20,7 @@ router.get('/repo', anonymous, async (req: Request, res: Response) => {
         const serverInfo = await a3sFacade.getServerInfo();
         return res.status(OK).send(serverInfo);
     } catch (e) {
-        logger.info('boom');
-        logger.error(e);
+        logger.error('failed to get server info ' +  (e && e.message));
         return res.status(500).send({message: e.message});
     }
 });

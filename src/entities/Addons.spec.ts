@@ -1,5 +1,6 @@
 import {Addons} from './Addons';
 import {A3sSyncTreeDirectoryDto} from 'arma3sync-lib/dist/model/a3sSync';
+import {SyncTreeBranch} from 'arma3sync-lib/dist/model/SyncTreeBranch';
 
 describe(Addons.name, () => {
     const a3sSyncTree: A3sSyncTreeDirectoryDto = {
@@ -87,7 +88,7 @@ describe(Addons.name, () => {
 
     describe(Addons.prototype.getAddonNames.name, () => {
         it(`should return a list of addon names`, (done) => {
-            expect(new Addons(a3sSyncTree).getAddonNames()).toEqual(['@ace', '@cba', 'GM']);
+            expect(new Addons(SyncTreeBranch.fromSyncTreeRoot(a3sSyncTree)).getAddonNames()).toEqual(['@ace', '@cba', 'GM']);
             done();
         });
     });

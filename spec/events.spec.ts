@@ -85,7 +85,7 @@ describe('Users Routes', () => {
             agent
                 .put(eventsPath)
                 .type('json')
-                .auth('test', 'test')
+                .auth('haxx0r', 's3cr3t')
                 .send(events)
                 .end((err: Error, res: Response) => {
                     pErr(err);
@@ -102,7 +102,7 @@ describe('Users Routes', () => {
             agent
                 .put(eventsPath)
                 .type('json')
-                .auth('test', 'test')
+                .auth('haxx0r', 's3cr3t')
                 .send([{}])
                 .end((err: Error, res: Response) => {
                     pErr(err);

@@ -1,13 +1,13 @@
-import {A3sSyncTreeDirectoryDto, A3sSyncTreeNodeDto} from 'arma3sync-lib/dist/model/a3sSync';
+import {SyncTreeBranch} from 'arma3sync-lib/dist/model/SyncTreeBranch';
 
 export class Addons {
-    constructor(private a3sSyncTree: A3sSyncTreeDirectoryDto) {
+    constructor(private a3sSyncTree: SyncTreeBranch) {
     }
 
     public getAddonNames(): string[] {
-        const addons: string[] = this.a3sSyncTree.list
-            .filter((obj: A3sSyncTreeNodeDto) => (obj as A3sSyncTreeDirectoryDto).markAsAddon)
-            .map((obj: A3sSyncTreeNodeDto) => obj.name);
+        const addons: string[] = Object.values(this.a3sSyncTree.branches)
+            .filter((branch) => branch.isAddon)
+            .map((branch) => branch.name);
 
         return addons.concat('GM');
     }

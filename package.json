@@ -13,7 +13,7 @@
     "@types/passport": "^1.0.1",
     "@types/passport-anonymous": "^1.0.3",
     "@types/passport-http": "^0.3.8",
-    "arma3sync-lib": "^0.0.13",
+    "arma3sync-lib": "0.0.14",
     "config": "^3.2.2",
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",

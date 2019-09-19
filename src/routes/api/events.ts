@@ -13,9 +13,8 @@ router.get('/', anonymous, async (req: Request, res: Response) => {
         const events = await a3sFacade.readEvents();
         return res.send(events);
     } catch (e) {
-        logger.error(e);
-        res.status(500);
-        return res.send();
+        logger.error('error reading events' + (e && e.message));
+        return res.status(INTERNAL_SERVER_ERROR).send();
     }
 });
 
@@ -39,7 +38,7 @@ router.put('/', httpBasic, async (req: Request, res: Response) => {
     try {
         await a3sFacade.writeEvents(events);
     } catch (e) {
-        logger.error(e.message);
+        logger.error('error writing events' + (e && e.message));
         return res.status(INTERNAL_SERVER_ERROR).send();
     }
     res.status(OK).send({message: 'done'});
