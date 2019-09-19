@@ -30,7 +30,17 @@ router.get('/changelog', anonymous, async (req: Request, res: Response) => {
         const changelogs = await a3sDirectory.getChangelogs();
         return res.status(OK).send(changelogs);
     } catch (e) {
-        logger.error('failed to get changelogs' + (e && e.message));
+        logger.error('failed to get changelogs ' + (e && e.message));
+        return res.status(500).send({message: e.message});
+    }
+});
+
+router.get('/autoconfig', anonymous, async (req: Request, res: Response) => {
+    try {
+        const autoconfig = await a3sDirectory.getAutoconfig();
+        return res.status(OK).send(autoconfig);
+    } catch (e) {
+        logger.error('error getting autoconfig ' + (e && e.message));
         return res.status(500).send({message: e.message});
     }
 });

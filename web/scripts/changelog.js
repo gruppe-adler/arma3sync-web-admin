@@ -1,7 +1,6 @@
 async function refresh() {
     const changelogResponse = await httpGet('/api/changelog');
     const changelogs = await changelogResponse.json();
-    console.log(changelogs);
 
     document.querySelector('#changelog').innerHTML = '<ul style="list-style: none">' +
     changelogs.list.map(changelog => {
