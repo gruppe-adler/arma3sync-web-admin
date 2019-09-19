@@ -33,6 +33,10 @@ const viewsDir = path.join(__dirname, '..', 'web', 'views');
 app.set('views', viewsDir);
 const staticDir = path.join(__dirname, '..', 'web');
 app.use(express.static(staticDir));
+
+app.get('/changelog', anonymous, (req: Request, res: Response) => {
+    res.sendFile('changelog.html', {root: viewsDir});
+});
 app.get('/events', anonymous, (req: Request, res: Response) => {
     res.sendFile('events.html', {root: viewsDir});
 });

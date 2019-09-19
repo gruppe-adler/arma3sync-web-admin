@@ -25,4 +25,14 @@ router.get('/repo', anonymous, async (req: Request, res: Response) => {
     }
 });
 
+router.get('/changelog', anonymous, async (req: Request, res: Response) => {
+    try {
+        const changelogs = await a3sDirectory.getChangelogs();
+        return res.status(OK).send(changelogs);
+    } catch (e) {
+        logger.error('failed to get changelogs' + (e && e.message));
+        return res.status(500).send({message: e.message});
+    }
+});
+
 export default router;
