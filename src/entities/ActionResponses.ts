@@ -13,7 +13,7 @@ const unknownRepoActionResponse: IRepoActionResponse = {
 };
 
 export class ActionResponses {
-    private maxId = -1;
+    private maxId = 0;
     public constructor(
         private responsesDto: { [id: number]: IRepoActionResponse; } = {},
         private maxResponseStorageCount = 100,
@@ -28,6 +28,10 @@ export class ActionResponses {
         return this.responsesDto[id] || unknownRepoActionResponse;
     }
 
+    public getCurrent(): IRepoActionResponse {
+        return this.responsesDto[this.maxId] || unknownRepoActionResponse;
+    }
+
     public add(): number {
         this.maxId++;
         this.responsesDto[this.maxId] = {
@@ -38,12 +42,13 @@ export class ActionResponses {
         return this.maxId;
     }
 
-    public setCurrentStatus(status: Status): void {
+    public setCurrent(status: Status, message = ''): void {
         const response = this.responsesDto[this.maxId];
         if (!response) {
             throw new Error('wtf');
         }
         response.status = status;
+        response.message = message;
     }
 
     public setCurrentMessage(message: string): void {
