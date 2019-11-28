@@ -6,6 +6,7 @@ import {logger} from 'src/shared';
 
 let currentRepoAction: Promise<any> = Promise.resolve();
 let currentRepoActionId = 0;
+
 let currentRepoActionStatus: 'PENDING'|'FAILED'|'DONE' = 'DONE';
 
 const router = Router();
