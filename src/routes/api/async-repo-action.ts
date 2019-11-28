@@ -42,6 +42,6 @@ function tryRepoAction(action: () => Promise<any>, res: Response): Response {
             actionResponses.setCurrent(Status.FAILED, message);
         });
 
-    return res.status(ACCEPTED).send({actionId: currentRepoActionId, time: new Date()});
+    return res.status(ACCEPTED).send({action: actionResponses.getCurrent(), time: new Date()});
 }
 export default router;

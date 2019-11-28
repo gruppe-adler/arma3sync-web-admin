@@ -9,13 +9,13 @@ document.querySelector('#sync-update').addEventListener('click', async () => {
         throw new Error('wtf');
     }
     const response = await request.json();
-    currentActionId = response.actionId;
+    currentActionId = response.action.id;
 
     document.querySelector('#sync-update').setAttribute('disabled', 'disabled');
 
     while(currentActionId) {
         const status = await (await httpGet('/api/repo/action/' + currentActionId)).json();
-        document.querySelector('#last-update-status').innerHTML = status.status;
+        document.querySelector('#last-update-status').innerHTML = status.message || status.status;
         if (status.status !== 'PENDING') {
             currentActionId = 0;
             document.querySelector('#sync-update').removeAttribute('disabled');
