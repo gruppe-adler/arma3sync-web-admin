@@ -1,5 +1,5 @@
 ![tests](https://img.shields.io/github/workflow/status/gruppe-adler/arma3sync-web-admin/Node%20CI?label=tests)
-[![codecov](https://codecov.io/gh/gruppe-adler/arma3sync-web-admin/branch/master/graph/badge.svg)](https://codecov.io/gh/gruppe-adler/node-arma3sync-lib)
+[![codecov](https://codecov.io/gh/gruppe-adler/arma3sync-web-admin/branch/master/graph/badge.svg)](https://codecov.io/gh/gruppe-adler/arma3sync-web-admin)
 
 # arma3sync-web-admin
 
