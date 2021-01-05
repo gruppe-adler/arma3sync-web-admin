@@ -7,3 +7,4 @@ spec/**/*.js
 *.map
 config/default.json
 config/production.json
+coverage/
