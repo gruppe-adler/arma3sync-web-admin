@@ -1,6 +1,0 @@
-{
-  "watch": ["spec", "src"],
-  "ext": "spec.ts",
-  "ignore": ["spec/support"],
-  "exec": "cross-env NODE_ENV=testing NODE_PATH=. ts-node ./spec/start.ts"
-}

@@ -1,0 +1,9 @@
+{
+  "arma3sync-lib": {
+    "repoPath": "./util",
+    "publicURL": "http://my-arma-community.com/modset"
+  },
+  "httpbasic-user": "haxx0r",
+  "httpbasic-password": "s3cr3t",
+  "port": 3000
+}

@@ -22,8 +22,8 @@ passport.use(new BasicStrategy((userid: string, password: string, done: (error: 
 }));
 passport.use(new AnonymousStrategy());
 
-passport.serializeUser((user: User, done) => {
-    done(null, user.name);
+passport.serializeUser((user: Express.User, done) => {
+    done(null, (user as User).name);
 });
 
 passport.deserializeUser((user: string, done) => {
