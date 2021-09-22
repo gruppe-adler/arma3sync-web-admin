@@ -1,7 +1,8 @@
 {
   "arma3sync-lib": {
     "repoPath": "/home/fusselwurm/arma3/repo/arma3sync",
-    "publicURL": "http://gruppe-adler.de/arma3sync"
+    "publicURL": "http://gruppe-adler.de/arma3sync",
+    "repoName": "Mein tolles Repo"
   },
   "httpbasic-user": "haxx0r",
   "httpbasic-password": "s3cr3t",

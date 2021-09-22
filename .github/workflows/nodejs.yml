@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [14]
+        node: [14, latest]
 
     steps:
       - uses: actions/checkout@v1
