@@ -1,12 +1,12 @@
 import {Request, Response, Router} from 'express';
 import {A3sFacade} from '../entities/A3sFacade';
-import {logger} from '../shared';
 import {OK} from 'http-status-codes';
 import {anonymous} from '../authenticationStrategies';
 import AsyncRepoActionRouter from './api/async-repo-action';
 import EventsRouter from 'src/routes/api/events';
 import AddonsRouter from 'src/routes/api/addons';
 import {a3sDirectory} from 'arma3sync-lib';
+import { handleError } from './util';
 
 const router = Router();
 const a3sFacade = new A3sFacade(a3sDirectory);
@@ -14,15 +14,6 @@ const a3sFacade = new A3sFacade(a3sDirectory);
 router.use('/repo/action', AsyncRepoActionRouter);
 router.use('/events', EventsRouter);
 router.use('/addons', AddonsRouter);
-
-function handleError(e: unknown, res: Response, context: string) {
-    let message: string = typeof e;
-    if (e instanceof Error) {
-        message = e.message;
-    }
-    logger.error(`${context} : ${message}`);
-    return res.status(500).send({message});
-}
 
 router.get('/repo', anonymous, async (req: Request, res: Response) => {
     try {

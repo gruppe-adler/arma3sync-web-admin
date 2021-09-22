@@ -1,9 +1,9 @@
 import {anonymous} from 'src/authenticationStrategies';
 import {Request, Response, Router} from 'express';
 import {OK} from 'http-status-codes';
-import {logger} from 'src/shared';
 import {A3sFacade} from 'src/entities/A3sFacade';
 import {a3sDirectory} from 'arma3sync-lib';
+import { handleError } from '../util';
 
 const router = Router();
 const a3sFacade = new A3sFacade(a3sDirectory);
@@ -15,8 +15,7 @@ router.get('', anonymous, async (req: Request, res: Response) => {
             return {name};
         }));
     } catch (e) {
-        logger.error('failed to get addon names ' + (e && e.message));
-        return res.status(500).send();
+        handleError(e, res, 'failed to get addon names');
     }
 });
 
